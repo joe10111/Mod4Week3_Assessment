@@ -1,8 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var currentUser = ViewBag.CurrentUser as string;
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+    @if(currentUser != "")
+    {
+        <h2 class="display-4">@currentUser</h2>
+    }
     <a href="/home/login"><button>Log In</button></a> <a href="/home/logout"><button>Log Out</button></a>
 </div>

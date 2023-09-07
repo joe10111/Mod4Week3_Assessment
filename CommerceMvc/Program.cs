@@ -8,10 +8,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<CommerceMvcContext>(options =>
     options
-        .UseNpgsql(builder.Configuration.GetConnectionString("CommerceMvcDb"))
-        .UseSnakeCaseNamingConvention()
-
-    );
+        .UseNpgsql(builder.Configuration["CommerceMvcDb"])
+            .UseSnakeCaseNamingConvention());
 
 var app = builder.Build();
 

@@ -1,10 +1,11 @@
 ﻿using CommerceMvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace CommerceMvc.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -26,11 +27,22 @@ namespace CommerceMvc.Controllers
         [HttpPost]
         public IActionResult Login(string currentUser)
         {
+            Response.Cookies.Append("currentUser", currentUser);
+            
+            ViewBag.CurrentUser = currentUser;
+
             return RedirectToAction("Index");
         }
 
         public IActionResult Logout()
         {
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(-1)
+            };
+
+            Response.Cookies.Append("currentUser", string.Empty, cookieOptions);
+
             return RedirectToAction("Index");
         }
 
